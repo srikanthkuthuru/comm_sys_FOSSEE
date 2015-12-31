@@ -31,6 +31,9 @@ function [y] = ssbmod(x,Fc,Fs,varargin)
 //subplot(313);
 //plot(f,[y3(N/2:$) y3(1:N/2-1)]); title("spectrum of the singlesided passband signal");
 
+//References:
+//https://en.wikipedia.org/wiki/Single-sideband_modulation
+
 //See also ammod
 //written by Srikanth Kuthuru, FOSSEE, IIT Madras.
 
