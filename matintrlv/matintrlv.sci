@@ -23,10 +23,12 @@ if(~isreal(Nrows) | ~isreal(Ncols) | modulo(Nrows,1) ~= 0 | modulo(Ncols,1) ~= 0
     error("Number of rows, columns must be integers");
 end
 //if input is a row, then convert it to a column
+row_flag = 0; //is zero if the input is a column vector and vice-versa
 [nrows_data ncols_data] = size(data);
 if (nrows_data == 1) then
     data = data(:);
     [nrows_data ncols_data] = size(data);
+    row_flag = 1;
 end
 
 if(modulo(nrows_data , (Nrows*Ncols)) ~= 0) then
@@ -36,6 +38,11 @@ end
 
 P = matrix(data, Ncols, Nrows, ncols_data);  
 P = permute(P, [2,1,3]); //Filling row-by-row
-y = matrix(P, nrows_data, ncols_data); //read column-by-column
+out = matrix(P, nrows_data, ncols_data); //read column-by-column
+if (row_flag == 0) then
+    y = out;
+else
+    y = out';   //if input is a row vector, then output should be row vector
+end
  
 endfunction
