@@ -70,7 +70,7 @@ end
 side = ''; //upper side or lower side
 if(rr == 5) then
     side = varargin(2);
-    if(~strcmpi(side,'upper')) then
+    if(strcmpi(side,'upper')) then
         error("invalid input argument");
     end
 end
@@ -84,7 +84,7 @@ end
 
 t = (0:1/Fs:(size(x,1)-1)/Fs)';
 
-if(strcmpi(side,'upper')) then
+if(~strcmpi(side,'upper')) then
     //Upper sideband
     y = 0.5 *x.*cos(2 * %pi * Fc * t + ini_phase) - 0.5 *imag(hilbert(x) .* sin(2 * %pi * Fc * t + ini_phase));
 else
