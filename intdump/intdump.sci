@@ -22,9 +22,11 @@ if(~isreal(nsamp) | modulo(nsamp,1) ~= 0) then
     error("Number of samples must be an integer");
 end
 //if input is a row, then convert it to a column
+row_flag = 0; //is zero if the input is a column vector and vice-versa
 [nrows_data ncols_data] = size(data);
 if (nrows_data == 1) then
     data = data(:);
+    row_flag = 1;
     [nrows_data ncols_data] = size(data);
 end
 if(modulo(nrows_data,nsamp) ~= 0) then
@@ -35,6 +37,10 @@ end
 n_symbols = nrows_data/nsamp; //number of symbols in each channel
 P = matrix(data, nsamp, n_symbols, ncols_data);
 P = mean(P, 1); //mean of the rows (dimension-1) in the 3D matrix
-y = matrix(P, n_symbols, ncols_data);
-
+out = matrix(P, n_symbols, ncols_data);
+if (row_flag == 0) then
+    y = out;
+else
+    y = out';   //if input is a row vector, then output should be row vector
+end
 endfunction
